@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import DeleteBtn from "../components/DeleteBtn";
-import Jumbotron from "../components/Jumbotron";
 import API from "../utils/API";
 import { Link } from "react-router-dom";
-import { Col, Row, Container } from "../components/Grid";
+import { Container,  Header, Icon, Image } from 'semantic-ui-react';
 import { List, ListItem } from "../components/List";
 import { Input, FormBtn } from "../components/Form";
 
@@ -53,12 +52,13 @@ function Search() {
     
     return (
       <Container>
-        <Row>
-          <Col size="lg-12">
-            <Jumbotron>
-              <h1>Google Books Search</h1>
-              <p class="lead">Search for and Save Books of Interest</p>
-            </Jumbotron>
+        <Header as='h2' icon textAlign='center' color='green'>
+          <Icon name='goodreads' />
+          Google Books Search
+          <Header.Subheader>
+            Search for and Save Books of Interest.
+          </Header.Subheader>
+        </Header>
             <form>
               <Input
                 onChange={handleInputChange}
@@ -72,8 +72,6 @@ function Search() {
                 Search
               </FormBtn>
             </form>
-          </Col>
-          <Col size="lg-12">
             {books.length ? (
               <List>
                 {books.map(book => (
@@ -90,8 +88,6 @@ function Search() {
             ) : (
               <h3>Type book title to search...</h3>
             )}
-          </Col>
-        </Row>
       </Container>
     );
   }

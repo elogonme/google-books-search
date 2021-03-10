@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import DeleteBtn from "../components/DeleteBtn";
-import Jumbotron from "../components/Jumbotron";
+import { Container } from 'semantic-ui-react';
 import API from "../utils/API";
 import { Link } from "react-router-dom";
-import { Col, Row, Container } from "../components/Grid";
 import { List, ListItem } from "../components/List";
 import { Input, TextArea, FormBtn } from "../components/Form";
 
@@ -52,12 +51,8 @@ function Books() {
   };
     
     return (
-      <Container fluid>
-        <Row>
-          <Col size="md-6">
-            <Jumbotron>
+      <Container>
               <h1>What Books Should I Read?</h1>
-            </Jumbotron>
             <form>
               <Input
                 onChange={handleInputChange}
@@ -81,11 +76,7 @@ function Books() {
                 Submit Book
               </FormBtn>
             </form>
-          </Col>
-          <Col size="md-6 sm-12">
-            <Jumbotron>
               <h1>Books On My List</h1>
-            </Jumbotron>
             {books.length ? (
               <List>
                 {books.map(book => (
@@ -102,8 +93,6 @@ function Books() {
             ) : (
               <h3>No Results to Display</h3>
             )}
-          </Col>
-        </Row>
       </Container>
     );
   }
