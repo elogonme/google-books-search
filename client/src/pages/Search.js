@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import DeleteBtn from "../components/DeleteBtn";
 import API from "../utils/API";
 import { Link } from "react-router-dom";
-import { Container,  Header, Icon, Image } from 'semantic-ui-react';
+import { Container } from 'semantic-ui-react';
 import { List, ListItem } from "../components/List";
 import { Input, FormBtn } from "../components/Form";
 
@@ -52,13 +52,6 @@ function Search() {
     
     return (
       <Container>
-        <Header as='h2' icon textAlign='center' color='green'>
-          <Icon name='goodreads' />
-          Google Books Search
-          <Header.Subheader>
-            Search for and Save Books of Interest.
-          </Header.Subheader>
-        </Header>
             <form>
               <Input
                 onChange={handleInputChange}
