@@ -1,2 +1,2 @@
-# google-books-search
-React-based Google Books Search app
+# react-reading-list
+React Reading List app
