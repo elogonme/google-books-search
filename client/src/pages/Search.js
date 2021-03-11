@@ -14,18 +14,18 @@ function Search() {
   //   loadBooks()
   // }, [])
 
-  function loadBooks() {
-    API.getBooks()
-      .then(res => 
-        setBooks(res.data)
-      )
-      .catch(err => console.log(err));
-  };
+  // function loadBooks() {
+  //   API.getBooks()
+  //     .then(res => 
+  //       setBooks(res.data)
+  //     )
+  //     .catch(err => console.log(err));
+  // };
 
   function saveBook(id) {
     const book = books.filter(book => book.id === id)[0]
     API.saveBook(book)
-      .then(res => loadBooks())
+      .then(res => console.log('book saved'))
       .catch(err => console.log(err));
   }
 
@@ -45,14 +45,14 @@ function Search() {
               authors:  book.volumeInfo.authors ? book.volumeInfo.authors.join(', ') : '...',
               description: book.volumeInfo.description,
               image: book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : bookImg,
-              link: book.volumeInfo.previewLink
+              link: book.volumeInfo.previewLink.split('&')[0]
             }
             }));
+            setSearch('');
         })
         .catch(err => console.log(err));
     };
   };
-    console.log(books);
     return (
       <Container>
             <form onSubmit={handleFormSubmit}>
@@ -68,18 +68,16 @@ function Search() {
             {books.length ? (
               <Item.Group divided>
                 {books.map(book => (
-                    // <Link to={"/books/" + book.id}>
-                      <BookItem 
-                        key={book.id}
-                        title={book.title}
-                        authors={book.authors}
-                        description={book.description}
-                        src={book.image}
-                        link={book.link}
-                        handleSave={saveBook}
-                        bookId={book.id}
-                      />
-                    // </Link>
+                  <BookItem 
+                    key={book.id}
+                    title={book.title}
+                    authors={book.authors}
+                    description={book.description}
+                    src={book.image}
+                    link={book.link}
+                    handleSave={saveBook}
+                    bookId={book.id}
+                  />
                 ))}
               </Item.Group>
             ) : (
