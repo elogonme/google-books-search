@@ -1,9 +1,9 @@
 import React from 'react';
 import "./style.css"
-import { Item, Icon, Image, Button, Label } from 'semantic-ui-react'
+import { Item, Icon, Button, Label } from 'semantic-ui-react'
 
 const BookItem = (props) => {
-    const { title, authors, description, src, link } = props;
+    const { title, authors, description, src, link, handleSave, bookId, deleteBtn, handleDelete } = props;
     return (
         <Item>
             <Item.Image size='tiny' src={src} />
@@ -14,10 +14,18 @@ const BookItem = (props) => {
                         <Label basic pointing='right' as='a' href={link} target='blank' >
                             View
                         </Label>
-                        <Button icon>
-                            <Icon name='heart' />
-                             Save
-                        </Button>
+                        {deleteBtn ? (
+                            <Button icon onClick={() => handleDelete(bookId)}>
+                                <Icon name='delete' />
+                                Delete
+                            </Button>
+                        ) : (
+                            <Button icon onClick={() => handleSave(bookId)}>
+                                <Icon name='heart' />
+                                Save
+                            </Button>
+                        )}
+                        
                     </Button>
                 </Item.Header>
                 </div>
@@ -25,9 +33,6 @@ const BookItem = (props) => {
                 <Item.Description>
                     {description}
                 </Item.Description>
-                <Item.Extra>
-                
-                </Item.Extra>
             </Item.Content>
         </Item>
 )};

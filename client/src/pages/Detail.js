@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Col, Row, Container } from "../components/Grid";
 import Jumbotron from "../components/Jumbotron";
@@ -12,11 +12,11 @@ function Detail() {
   // The book id for this route can be accessed using the useParams hook
   // from react-router-dom.
   const { id } = useParams();
-  useEffect(() => {
-    API.getBook(id)
-      .then(res => setBook(res.data))
-      .catch(err => console.log(err));
-  }, [])
+  // useEffect(() => {
+  //   API.getBook(id)
+  //     .then(res => setBook(res.data))
+  //     .catch(err => console.log(err));
+  // }, [])
 
   return (
       <Container fluid>

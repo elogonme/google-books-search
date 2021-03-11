@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from "react";
-import DeleteBtn from "../components/DeleteBtn";
-import { Container } from 'semantic-ui-react';
+import { Container, Item, Header } from 'semantic-ui-react';
 import API from "../utils/API";
-import { Link } from "react-router-dom";
-import { List, ListItem } from "../components/List";
-import { Input, TextArea, FormBtn } from "../components/Form";
+import BookItem from "../components/BookItem";
+import "./Saved.css"
 
 function Saved() {
-  const [books, setBooks] = useState([]);
-  const [formObject, setFormObject] = useState({});
+  const [savedBooks, setSavedBooks] = useState([]);
 
   useEffect(() => {
     loadBooks()
@@ -17,7 +14,7 @@ function Saved() {
   function loadBooks() {
     API.getBooks()
       .then(res => 
-        setBooks(res.data)
+        setSavedBooks(res.data)
       )
       .catch(err => console.log(err));
   };
@@ -27,75 +24,31 @@ function Saved() {
       .then(res => loadBooks())
       .catch(err => console.log(err));
   }
-
-  function handleInputChange(event) {
-    const { name, value } = event.target;
-    setFormObject({...formObject, [name]: value})
-  };
-
-  function handleFormSubmit(event) {
-    event.preventDefault();
-    if (formObject.title && formObject.author) {
-      API.saveBook({
-        title: formObject.title,
-        author: formObject.author,
-        synopsis: formObject.synopsis
-      })
-        .then(res => {
-          loadBooks();
-          setFormObject({});
-        })
-        .catch(err => console.log(err));
-    };
-    
-  };
-    
-    return (
-      <Container>
-              <h1>What Books Should I Read?</h1>
-            <form>
-              <Input
-                onChange={handleInputChange}
-                name="title"
-                placeholder="Title (required)"
-              />
-              <Input
-                onChange={handleInputChange}
-                name="author"
-                placeholder="Author (required)"
-              />
-              <TextArea
-                onChange={handleInputChange}
-                name="synopsis"
-                placeholder="Synopsis (Optional)"
-              />
-              <FormBtn
-                disabled={!(formObject.author && formObject.title)}
-                onClick={handleFormSubmit}
-              >
-                Submit Book
-              </FormBtn>
-            </form>
-              <h1>Books On My List</h1>
-            {books.length ? (
-              <List>
-                {books.map(book => (
-                  <ListItem key={book._id}>
-                    <Link to={"/books/" + book._id}>
-                      <strong>
-                        {book.title} by {book.author}
-                      </strong>
-                    </Link>
-                    <DeleteBtn onClick={() => deleteBook(book._id)} />
-                  </ListItem>
-                ))}
-              </List>
-            ) : (
-              <h3>No Results to Display</h3>
-            )}
-      </Container>
-    );
-  }
-
+  return (
+    <Container>
+      {savedBooks.length ? (
+        <Item.Group divided>
+          {savedBooks.map(book => (
+              // <Link to={"/books/" + book.id}>
+                <BookItem 
+                  key={book._id}
+                  deleteBtn={true}
+                  title={book.title}
+                  authors={book.authors}
+                  description={book.description}
+                  src={book.image}
+                  link={book.link}
+                  handleDelete={deleteBook}
+                  bookId={book._id}
+                />
+              // </Link>
+          ))}
+        </Item.Group>
+      ) : (
+        <Header as="h3" color="grey" className="no-saved">You have not saved any books...</Header>
+      )}
+    </Container>
+  );
+}
 
 export default Saved;

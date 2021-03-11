@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import API from "../utils/API";
-import { Link } from "react-router-dom";
 import { Container,  Input, Header, Item } from 'semantic-ui-react';
 import "./Search.css";
 import BookItem from "../components/BookItem";
@@ -23,8 +22,9 @@ function Search() {
       .catch(err => console.log(err));
   };
 
-  function deleteBook(id) {
-    API.deleteBook(id)
+  function saveBook(id) {
+    const book = books.filter(book => book.id === id)[0]
+    API.saveBook(book)
       .then(res => loadBooks())
       .catch(err => console.log(err));
   }
@@ -52,7 +52,7 @@ function Search() {
         .catch(err => console.log(err));
     };
   };
-    
+    console.log(books);
     return (
       <Container>
             <form onSubmit={handleFormSubmit}>
@@ -76,6 +76,8 @@ function Search() {
                         description={book.description}
                         src={book.image}
                         link={book.link}
+                        handleSave={saveBook}
+                        bookId={book.id}
                       />
                     // </Link>
                 ))}
