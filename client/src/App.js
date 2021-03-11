@@ -5,6 +5,7 @@ import NoMatch from "./pages/NoMatch";
 import Nav from "./components/Nav";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import PageHeader from "./components/PageHeader";
+import { StoreProvider } from "./utils/GlobalState";
 
 
 // The app will not render correctly until you setup a Route component.
@@ -14,15 +15,17 @@ function App() {
   return (
     <BrowserRouter>
     <div>
-      <PageHeader />
-      <Nav />
-      <Switch>
-        <Route exact path="/" component={Search} />
-        <Route exact path="/search" component={Search} />
-        <Route exact path="/saved" component={Saved} />
-        {/* <Route exact path="/books/:id" component={Detail} /> */}
-        <Route component={NoMatch} />
+      <StoreProvider>
+        <PageHeader />
+        <Nav />
+        <Switch>
+          <Route exact path="/" component={Search} />
+          <Route exact path="/search" component={Search} />
+          <Route exact path="/saved" component={Saved} />
+          {/* <Route exact path="/books/:id" component={Detail} /> */}
+          <Route component={NoMatch} />
         </Switch>
+      </StoreProvider>
     </div>
     </BrowserRouter>
   );

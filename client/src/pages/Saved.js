@@ -1,34 +1,47 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Container, Item, Header } from 'semantic-ui-react';
+import { useStoreContext } from "../utils/GlobalState";
 import API from "../utils/API";
 import BookItem from "../components/BookItem";
 import "./Saved.css"
+import { UPDATE_FAVORITES ,REMOVE_FAVORITE, LOADING } from "../utils/actions";
 
 function Saved() {
-  const [savedBooks, setSavedBooks] = useState([]);
-
+  const [state, dispatch] = useStoreContext();
   useEffect(() => {
-    loadBooks()
+    loadBooks();
   }, [])
 
   function loadBooks() {
     API.getBooks()
-      .then(res => 
-        setSavedBooks(res.data)
+      .then(res => {
+        dispatch({
+          type: UPDATE_FAVORITES,
+          favorites: res.data
+        })
+      return res
+      }
       )
       .catch(err => console.log(err));
   };
 
   function deleteBook(id) {
+    dispatch({ type: LOADING });
     API.deleteBook(id)
-      .then(res => loadBooks())
+      .then(res => {
+        // loadBooks();
+        dispatch({
+          type: REMOVE_FAVORITE,
+          id: id
+        })
+      })
       .catch(err => console.log(err));
   }
   return (
     <Container>
-      {savedBooks.length ? (
+      {state.favorites.length ? (
         <Item.Group divided>
-          {savedBooks.map(book => (
+          {state.favorites.map(book => (
               // <Link to={"/books/" + book.id}>
                 <BookItem 
                   key={book._id}
