@@ -53,12 +53,14 @@ function Search() {
     return (
       <Container>
             <form onSubmit={handleFormSubmit}>
-              <Input 
+              <Input
+                action='Search'
                 loading={state.loading}
                 className="search"
                 onChange={handleInputChange}
                 name="title"
                 icon="search"
+                iconPosition='left'
                 placeholder="Search for title... "
                 value={search}
               />

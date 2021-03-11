@@ -1,10 +1,11 @@
 import React from "react";
 import "./style.css"
 import { Header, Icon } from 'semantic-ui-react';
+import logo from "../../images/logo.png";
 
 const PageHeader = () => (
     <Header as='h2' icon textAlign='center' className="page-header">
-        <Icon name='goodreads' color="blue" />
+        <div><img src={logo} height={68}/></div>
         <span style={{color: "red"}}>Google</span>
         <span style={{color: "orange"}}> Books</span>
         <span style={{color: "green"}}> Search</span>

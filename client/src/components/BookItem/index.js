@@ -8,7 +8,7 @@ const BookItem = (props) => {
     const { title, authors, description, src, link, handleSave, bookId, deleteBtn, handleDelete } = props;
     return (
         <Item>
-            <Item.Image size='tiny' src={src} />
+            <Item.Image size='tiny' src={src} as='a' href={link} target='_blank'/>
             <Item.Content verticalAlign='middle'>
                 <div>
                 <Item.Header className='item-header'>{title}
