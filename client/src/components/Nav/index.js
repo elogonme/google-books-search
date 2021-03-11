@@ -1,13 +1,24 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
+import { Menu, Container } from 'semantic-ui-react';
 
-function Nav() {
+
+function Nav(props) {
+
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-      <a className="navbar-brand" href="/">
-      <i className="fas fa-book-reader mr-2"></i>
-        React Reading List
-      </a>
-    </nav>
+    <Container>
+      <Menu tabular>
+          <Menu.Item as={ NavLink } to="/search"
+            name='Search'
+            active={props.location === 'search'}
+          />
+          <Menu.Item as={ NavLink } to="/saved"
+            name='Saved Books'
+            active={props.location === 'saved'}
+          />
+      </Menu>
+    </Container>
+    
   );
 }
 

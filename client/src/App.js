@@ -1,9 +1,10 @@
 import React from "react";
-import Books from "./pages/Books";
-import Detail from "./pages/Detail";
+import Saved from "./pages/Saved";
+import Search from "./pages/Search";
 import NoMatch from "./pages/NoMatch";
 import Nav from "./components/Nav";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import PageHeader from "./components/PageHeader";
 
 
 // The app will not render correctly until you setup a Route component.
@@ -13,11 +14,13 @@ function App() {
   return (
     <BrowserRouter>
     <div>
+      <PageHeader />
       <Nav />
       <Switch>
-        <Route exact path="/" component={Books} />
-        <Route exact path="/books" component={Books} />
-        <Route exact path="/books/:id" component={Detail} />
+        <Route exact path="/" component={Search} />
+        <Route exact path="/search" component={Search} />
+        <Route exact path="/saved" component={Saved} />
+        {/* <Route exact path="/books/:id" component={Detail} /> */}
         <Route component={NoMatch} />
         </Switch>
     </div>
