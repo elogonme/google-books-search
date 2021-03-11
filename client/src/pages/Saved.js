@@ -8,8 +8,6 @@ import { UPDATE_FAVORITES ,REMOVE_FAVORITE, LOADING } from "../utils/actions";
 
 function Saved() {
   const [state, dispatch] = useStoreContext();
-  // const [savedBooks, setSavedBooks] = useState([]);
-  let favorites = state.favorites;
   useEffect(() => {
     loadBooks();
   }, [])
@@ -28,6 +26,7 @@ function Saved() {
   };
 
   function deleteBook(id) {
+    dispatch({ type: LOADING });
     API.deleteBook(id)
       .then(res => {
         // loadBooks();

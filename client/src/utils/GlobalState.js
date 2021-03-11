@@ -2,6 +2,7 @@ import React, { createContext, useReducer, useContext } from "react";
 import {
     SAVE_SEARCH,
     CLEAR_SEARCH,
+    ADD_FAVORITE,
     UPDATE_FAVORITES,
     REMOVE_FAVORITE,
     LOADING,
@@ -11,6 +12,7 @@ const StoreContext = createContext();
 const { Provider } = StoreContext;
 const reducer = (state, action) => {
     // console.log('reducer action', action);
+    console.log(action, state);
     switch (action.type) {
       case SAVE_SEARCH:
         return { ...state,
@@ -20,7 +22,8 @@ const reducer = (state, action) => {
   
       case CLEAR_SEARCH :
         return { ...state,
-          books: []
+          books: [],
+          loading: false
         };
   
       case UPDATE_FAVORITES :
@@ -30,10 +33,18 @@ const reducer = (state, action) => {
           loading: false
         };
   
+      case ADD_FAVORITE :
+        return { 
+          ...state, 
+          favorite: [action.favorite, ...state.favorites],
+          loading: false
+        };
+
       case REMOVE_FAVORITE :
         return { 
           ...state, 
-          favorites: state.favorites.filter(favorite => favorite._id !== action.id)
+          favorites: state.favorites.filter(favorite => favorite._id !== action.id),
+          loading: false
         };
   
       case LOADING :
@@ -47,6 +58,7 @@ const reducer = (state, action) => {
   const StoreProvider = ({ value = [], ...props }) => {
     const [state, dispatch] = useReducer(reducer, {
         search: '',
+        favorite: '',
         books: [],
         favorites: [],
         loading: false

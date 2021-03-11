@@ -5,29 +5,20 @@ import { useStoreContext } from "../utils/GlobalState";
 import "./Search.css";
 import BookItem from "../components/BookItem";
 import bookImg from "../images/book.png"
-import { SAVE_SEARCH, CLEAR_SEARCH, LOADING } from "../utils/actions";
+import { SAVE_SEARCH, CLEAR_SEARCH, ADD_FAVORITE, LOADING } from "../utils/actions";
 
 function Search() {
   const [state, dispatch] = useStoreContext();
-  // const [books, setBooks] = useState([]);
   const [search, setSearch] = useState('');
 
-  // useEffect(() => {
-  //   loadBooks()
-  // }, [])
-
-  // function loadBooks() {
-  //   API.getBooks()
-  //     .then(res => 
-  //       setBooks(res.data)
-  //     )
-  //     .catch(err => console.log(err));
-  // };
-
   function saveBook(id) {
+    dispatch({ type: LOADING });
     const book = state.books.filter(book => book.id === id)[0]
     API.saveBook(book)
-      .then(res => console.log('book saved'))
+      .then(res => dispatch({
+        type: ADD_FAVORITE,
+        favorite: res
+      }))
       .catch(err => console.log(err));
   }
 
@@ -62,7 +53,8 @@ function Search() {
     return (
       <Container>
             <form onSubmit={handleFormSubmit}>
-              <Input
+              <Input 
+                loading={state.loading}
                 className="search"
                 onChange={handleInputChange}
                 name="title"

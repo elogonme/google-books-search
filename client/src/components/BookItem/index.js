@@ -1,8 +1,10 @@
 import React from 'react';
 import "./style.css"
-import { Item, Icon, Button, Label } from 'semantic-ui-react'
+import { Item, Icon, Button, Label } from 'semantic-ui-react';
+import { useStoreContext } from "../../utils/GlobalState";
 
 const BookItem = (props) => {
+    const [state, dispatch] = useStoreContext();
     const { title, authors, description, src, link, handleSave, bookId, deleteBtn, handleDelete } = props;
     return (
         <Item>
@@ -15,12 +17,14 @@ const BookItem = (props) => {
                             View
                         </Label>
                         {deleteBtn ? (
-                            <Button icon onClick={() => handleDelete(bookId)}>
+                            <Button loading={state.loading} 
+                                icon onClick={() => handleDelete(bookId)}>
                                 <Icon name='delete' />
                                 Delete
                             </Button>
                         ) : (
-                            <Button icon onClick={() => handleSave(bookId)}>
+                            <Button loading={state.loading} 
+                                icon onClick={() => handleSave(bookId)}>
                                 <Icon name='heart' />
                                 Save
                             </Button>
