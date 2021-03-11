@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { List, ListItem } from "../components/List";
 import { Input, TextArea, FormBtn } from "../components/Form";
 
-function Books() {
+function Saved() {
   const [books, setBooks] = useState([]);
   const [formObject, setFormObject] = useState({});
 
@@ -98,4 +98,4 @@ function Books() {
   }
 
 
-export default Books;
+export default Saved;

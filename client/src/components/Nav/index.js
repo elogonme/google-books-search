@@ -12,9 +12,9 @@ function Nav(props) {
             name='Search'
             active={props.location === 'search'}
           />
-          <Menu.Item as={ NavLink } to="/books"
-            name='Books'
-            active={props.location === 'books'}
+          <Menu.Item as={ NavLink } to="/saved"
+            name='Saved Books'
+            active={props.location === 'saved'}
           />
       </Menu>
     </Container>
