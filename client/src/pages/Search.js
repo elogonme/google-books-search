@@ -5,15 +5,16 @@ import { useStoreContext } from "../utils/GlobalState";
 import "./Search.css";
 import BookItem from "../components/BookItem";
 import bookImg from "../images/book.png"
-import { SAVE_SEARCH, CLEAR_SEARCH, ADD_FAVORITE, LOADING } from "../utils/actions";
+import { SAVE_SEARCH, ADD_FAVORITE, LOADING } from "../utils/actions";
 
 function Search() {
   const [state, dispatch] = useStoreContext();
   const [search, setSearch] = useState('');
-
+  
   function saveBook(id) {
     dispatch({ type: LOADING });
-    const book = state.books.filter(book => book.id === id)[0]
+    const book = state.books.filter(book => book.id === id)[0];
+    API.subscribeToUpdates(book, (response) => console.log('received saved update: ',response));
     API.saveBook(book)
       .then(res => dispatch({
         type: ADD_FAVORITE,
@@ -86,6 +87,5 @@ function Search() {
       </Container>
     );
   }
-
 
 export default Search;

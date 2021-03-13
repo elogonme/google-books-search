@@ -11,8 +11,7 @@ import {
 const StoreContext = createContext();
 const { Provider } = StoreContext;
 const reducer = (state, action) => {
-    // console.log('reducer action', action);
-    console.log(action, state);
+    // console.log(action, state);
     switch (action.type) {
       case SAVE_SEARCH:
         return { ...state,
