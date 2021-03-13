@@ -42,19 +42,17 @@ function Saved() {
       {state.favorites.length ? (
         <Item.Group divided>
           {state.favorites.map(book => (
-              // <Link to={"/books/" + book.id}>
-                <BookItem 
-                  key={book._id}
-                  deleteBtn={true}
-                  title={book.title}
-                  authors={book.authors}
-                  description={book.description}
-                  src={book.image}
-                  link={book.link}
-                  handleDelete={deleteBook}
-                  bookId={book._id}
-                />
-              // </Link>
+            <BookItem 
+              key={book._id}
+              deleteBtn={true}
+              title={book.title}
+              authors={book.authors}
+              description={book.description}
+              src={book.image}
+              link={book.link}
+              handleDelete={deleteBook}
+              bookId={book._id}
+            />
           ))}
         </Item.Group>
       ) : (

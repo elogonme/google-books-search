@@ -1,4 +1,6 @@
 import axios from "axios";
+import openSocket from 'socket.io-client';
+const  socket = openSocket();
 
 export default {
   // Search for title at Google books
@@ -20,5 +22,12 @@ export default {
   // Saves a book to the database
   saveBook: function(bookData) {
     return axios.post("/api/books", bookData);
+  },
+  // API to subscribe to socket.io on server to recieve update notifications
+  subscribeToUpdates: function(update, cb){
+    socket.on('update', newUpdate => cb(newUpdate));
+    if (update) {
+      socket.emit('favoriteUpdate', update);
+    };
   }
 };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Saved from "./pages/Saved";
 import Search from "./pages/Search";
 import NoMatch from "./pages/NoMatch";
@@ -6,23 +6,40 @@ import Nav from "./components/Nav";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import PageHeader from "./components/PageHeader";
 import { StoreProvider } from "./utils/GlobalState";
+import API from "./utils/API";
+import UpdateMessage from "./components/UpdateMessage";
 
-
-// The app will not render correctly until you setup a Route component.
-// Refer to the Basic Example documentation if you need to.
-// (https://reacttraining.com/react-router/web/example/basic)
 function App() {
+  const [savedUpdate, setSavedUpdate] = useState(
+    {
+      favorite: "",
+      isVisible: false
+    });
+  
+  API.subscribeToUpdates(null, (response) => {
+    setSavedUpdate(
+      {
+        favorite: response,
+        isVisible: true
+      });
+    setTimeout(() => setSavedUpdate(
+      {
+        favorite: "",
+        isVisible: false
+      }), 4000);
+  });
+  
   return (
     <BrowserRouter>
     <div>
+      <UpdateMessage savedUpdate={savedUpdate}/>
       <StoreProvider>
-        <PageHeader />
+        <PageHeader/>
         <Nav />
         <Switch>
           <Route exact path="/" component={Search} />
           <Route exact path="/search" component={Search} />
           <Route exact path="/saved" component={Saved} />
-          {/* <Route exact path="/books/:id" component={Detail} /> */}
           <Route component={NoMatch} />
         </Switch>
       </StoreProvider>
