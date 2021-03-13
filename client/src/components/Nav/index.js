@@ -1,9 +1,17 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { Menu, Container } from 'semantic-ui-react';
+import { Menu, Container, Button, Icon } from 'semantic-ui-react';
+import { useStoreContext} from "../../utils/GlobalState"
+import { CLEAR_SEARCH } from "../../utils/actions";
 
 
 function Nav(props) {
+  const [state, dispatch] = useStoreContext();
+  
+  // Clear search results on button click
+  const handleClick = () => {
+    dispatch({type: CLEAR_SEARCH});
+  }
 
   return (
     <Container>
@@ -16,6 +24,11 @@ function Nav(props) {
             name='Saved Books'
             active={props.location === 'saved'}
           />
+          {state.books.length > 0 && <Menu.Item position='right'>
+          <Button basic icon onClick={handleClick}>
+            <Icon name='remove' />
+          </Button>
+          </Menu.Item>}
       </Menu>
     </Container>
     
