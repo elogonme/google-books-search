@@ -5,13 +5,13 @@ import API from "../utils/API";
 import BookItem from "../components/BookItem";
 import "./Saved.css"
 import { UPDATE_FAVORITES ,REMOVE_FAVORITE, LOADING } from "../utils/actions";
-
+// Saved books page component
 function Saved() {
   const [state, dispatch] = useStoreContext();
   useEffect(() => {
     loadBooks();
   }, [])
-
+  // Function to load saved books from MongoDB
   function loadBooks() {
     API.getBooks()
       .then(res => {
@@ -24,7 +24,7 @@ function Saved() {
       )
       .catch(err => console.log(err));
   };
-
+  // Handle delete book on click of Delete Buttons
   function deleteBook(id) {
     dispatch({ type: LOADING });
     API.deleteBook(id)

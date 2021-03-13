@@ -3,6 +3,7 @@ import "./style.css"
 import { Item, Icon, Button, Label } from 'semantic-ui-react';
 import { useStoreContext } from "../../utils/GlobalState";
 
+// Book Item component to display single book information
 const BookItem = (props) => {
     const [state, dispatch] = useStoreContext();
     const { title, authors, description, src, link, handleSave, bookId, deleteBtn, handleDelete } = props;
