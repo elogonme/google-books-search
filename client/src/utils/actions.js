@@ -1,3 +1,4 @@
+// Define actions to use in reducer
 export const SAVE_SEARCH = "SAVE_SEARCH";
 export const CLEAR_SEARCH = "CLEAR_SEARCH";
 export const ADD_FAVORITE = "ADD_FAVORITE";

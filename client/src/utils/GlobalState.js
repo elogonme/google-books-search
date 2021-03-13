@@ -8,8 +8,10 @@ import {
     LOADING,
   } from "./actions";
 
+// Create Global State Redux Store to keep states to be used by components
 const StoreContext = createContext();
 const { Provider } = StoreContext;
+// Define reducer action cases
 const reducer = (state, action) => {
     // console.log(action, state);
     switch (action.type) {
@@ -54,6 +56,7 @@ const reducer = (state, action) => {
     }
   };
   
+  // Define Store Provider properties
   const StoreProvider = ({ value = [], ...props }) => {
     const [state, dispatch] = useReducer(reducer, {
         search: '',

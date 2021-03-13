@@ -1,4 +1,5 @@
 import axios from "axios";
+// Configure Socket.io
 import openSocket from 'socket.io-client';
 const  socket = openSocket();
 

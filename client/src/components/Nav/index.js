@@ -4,7 +4,7 @@ import { Menu, Container, Button, Icon } from 'semantic-ui-react';
 import { useStoreContext} from "../../utils/GlobalState"
 import { CLEAR_SEARCH } from "../../utils/actions";
 
-
+// Nav bar component with page tabs - Using Semantic UI library
 function Nav(props) {
   const [state, dispatch] = useStoreContext();
   

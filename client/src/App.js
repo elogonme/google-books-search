@@ -10,12 +10,14 @@ import API from "./utils/API";
 import UpdateMessage from "./components/UpdateMessage";
 
 function App() {
+  // State to trigger message when update received from sockets.io API
   const [savedUpdate, setSavedUpdate] = useState(
     {
       favorite: "",
       isVisible: false
     });
   
+  // Subscribe to updates from server using API
   API.subscribeToUpdates(null, (response) => {
     setSavedUpdate(
       {
@@ -28,7 +30,7 @@ function App() {
         isVisible: false
       }), 4000);
   });
-  
+  // Define Router path and components to render, wrap store provider to inject children components
   return (
     <BrowserRouter>
     <div>
