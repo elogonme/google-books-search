@@ -46,8 +46,3 @@ io.on('connection', (client) => {
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/googlebooks");
 
 server.listen(PORT, () => console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`));
-
-// Start the API server
-// app.listen(PORT1, function() {
-//   console.log(`🌎  ==> API Server now listening on PORT ${PORT1}!`);
-// });
